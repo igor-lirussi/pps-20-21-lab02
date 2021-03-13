@@ -4,7 +4,7 @@ package u02
 import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.Test
 
-class HelloScalaTest {
+class Part2aTest {
 
   @Test def testEvenOdd() {
     // function
@@ -74,14 +74,22 @@ class HelloScalaTest {
   def testNegGenerics() {
 
     val empty: String => Boolean = _==""
+    val sameBoolean: Boolean => Boolean = b => b
+    val isZero: Int => Boolean = b => b==0
 
 
-    def negGenerics[T](p: T => Boolean) : ( T => Boolean) =  gen => !p(gen)
+    def negGenerics[T](func: T => Boolean) : ( T => Boolean) =  gen => !func(gen)
 
     val notEmpty = negGenerics(empty)
+    val notSameBoolean = negGenerics(sameBoolean)
+    val notIsZero = negGenerics(isZero)
 
-    assertEquals(true, notEmpty("foo"))
+    assertEquals(true, notEmpty("foo") )
     assertEquals(false, notEmpty("") )
+    assertEquals(true, notSameBoolean(false) )
+    assertEquals(false, notSameBoolean(true) )
+    assertEquals(true, notIsZero(1) )
+    assertEquals(false, notIsZero(0) )
 
   }
 
