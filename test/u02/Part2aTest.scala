@@ -46,7 +46,7 @@ class Part2aTest {
     // = f che va ora in una funzione String to boolean
     val neg: (String=>Boolean) => (String=>Boolean)   =   ( f ) => (s => !f(s))
 
-    def neg2(fun:String=>Boolean): (String=>Boolean) =   s => !fun(s)
+    def neg2(fun:String=>Boolean): (String=>Boolean) =   s => !fun(s) //questa va da string a bool come dopo i :
 
     //sbagliato perchè associa a dx
     //val neg: String=>Boolean =>Boolean = f => !f(a)
