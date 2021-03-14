@@ -52,12 +52,12 @@ class Part2bTest {
     assertEquals(true, p3(6)(8)(10))
     assertEquals(false, p3(10)(8)(10))
     val greaterThanTen=p3(9)(10)(_) //todo why this?
-    val greaterThanNine=p3(9)(_)(_)
+    val greaterThanNine=p3(9) _
     //val greaterThanTen2=greaterThanNine(19)(_) //todo why not here?
     assertEquals(true, greaterThanTen(11))
     assertEquals(false, greaterThanTen(8))
-    assertEquals(true, greaterThanNine(10, 12))//todo why like this now :(
-    assertEquals(false, greaterThanNine(10,12))
+    assertEquals(true, greaterThanNine(10)(12))//todo why like this now :(
+    assertEquals(false, greaterThanNine(12)(8))
     //curried with generics
     //def p3[A,B,C](X:A)(Y:B)(Z:C): Boolean = (X<=Y)&&(Y<=Z)
     //TODO same problem as above (X<=Y)&&(Y<=Z) error
@@ -67,7 +67,25 @@ class Part2bTest {
 
   @Test
   def testFunctionalComposition() {
-    
+    //composizione interi
+    def compose(f:Int =>Int, g:Int => Int) : Int=>Int = num=>f(g(num))
+    //prende in ingresso due funzioni (da int a int) e restituisce una (da int a int)
+    // dopo "=" ci va la corrispondenza Int=>Int che trovo dopo i ":"
+    assertEquals(9, compose(_-1,_*2)(5))
+    val minusThree= compose(_-1,_-2) //funzione da Int in Int
+    assertEquals(9, minusThree(12))
+
+    //composizione generica
+    def composeGen[A, B, C](f:B =>C, g:A => B) : A=>C = a=>f(g(a))
+    //f prende in ingresso il risultato di g, quindi B
+    //assertEquals(9, composeGen(_-1,_*2)(5)) //no perchè non riesce a deferire i tipi
+    //assertEquals(9, composeGen(_-1:Int=>Int,_*2:Int=>Int)(5)) //no
+    val sub: Int=>Int = _-1
+    val twice: Int=>Int = _*2
+    assertEquals(9, composeGen(sub,twice)(5)) //ora sa che vanno da Int in Int
+    val subDoub: Double=>Double = _-0.5
+    val twiceDouble: Double=>Double = _*2.5
+    assertEquals(10, composeGen(twiceDouble, subDoub)(4.5)) //ora sa che vanno da Double a Double
   }
 
 }
