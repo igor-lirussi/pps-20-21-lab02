@@ -79,7 +79,7 @@ class Part2bTest {
     def composeGen[A, B, C](f:B =>C, g:A => B) : A=>C = a=>f(g(a))
     //f prende in ingresso il risultato di g, quindi B
     //assertEquals(9, composeGen(_-1,_*2)(5)) //no perchè non riesce a deferire i tipi
-    //assertEquals(9, composeGen(_-1:Int=>Int,_*2:Int=>Int)(5)) //no
+    //assertEquals(9, composeGen(_-1:Int=>Int,_*2:Int=>Int)(5)) //todo no, why?
     val sub: Int=>Int = _-1
     val twice: Int=>Int = _*2
     assertEquals(9, composeGen(sub,twice)(5)) //ora sa che vanno da Int in Int
