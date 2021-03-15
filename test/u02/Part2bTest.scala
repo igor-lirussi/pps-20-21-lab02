@@ -53,10 +53,10 @@ class Part2bTest {
     assertEquals(false, p3(10)(8)(10))
     val greaterThanTen=p3(9)(10)(_) //todo why this?
     val greaterThanNine=p3(9) _
-    //val greaterThanTen2=greaterThanNine(19)(_) //todo why not here?
+    //val greaterThanTen2=greaterThanNine(10)(_) //todo why not here?
     assertEquals(true, greaterThanTen(11))
     assertEquals(false, greaterThanTen(8))
-    assertEquals(true, greaterThanNine(10)(12))//todo why like this now :(
+    assertEquals(true, greaterThanNine(10)(12))
     assertEquals(false, greaterThanNine(12)(8))
     //curried with generics
     //def p3[A,B,C](X:A)(Y:B)(Z:C): Boolean = (X<=Y)&&(Y<=Z)

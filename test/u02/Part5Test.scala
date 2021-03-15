@@ -21,8 +21,8 @@ class Part5Test {
 
       }
 
-      //currying method
-//      def map[A, B <: A](opt: Option[A])(fun:A=>B): Option[A] = opt match {
+      //currying method generics
+//      def map[A, B](opt: Option[A])(fun:A=>B): Option[B] = opt match {
 //        case Some(a) => Some(fun(a))
 //        case _ => None()
 //
