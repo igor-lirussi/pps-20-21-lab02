@@ -21,6 +21,18 @@ class Part5Test {
 
       }
 
+      //currying method
+//      def map[A, B <: A](opt: Option[A])(fun:A=>B): Option[A] = opt match {
+//        case Some(a) => Some(fun(a))
+//        case _ => None()
+//
+//      }
+      //currying method
+      def map[A](opt: Option[A])(fun:A=>Boolean): Option[Boolean] = opt match {
+        case Some(a) => Some(fun(a))
+        case _ => None()
+
+      }
       def isEmpty[A](opt: Option[A]): Boolean = opt match {
         case None() => true
         case _ => false
@@ -46,6 +58,9 @@ class Part5Test {
     assertEquals(Some(5), filter(Some(5))(_ > 2))
     assertEquals( None(), filter(Some(5))(_ > 8) )
 
+    //map
+    assertEquals(Some(true), map(Some(5))(_ > 2) )// Some(true)
+    assertEquals(None(), map(None[Int])(_ > 2) )// None
   }
 
 
