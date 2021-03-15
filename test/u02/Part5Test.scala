@@ -33,6 +33,22 @@ class Part5Test {
         case _ => None()
 
       }
+
+      //currying method
+      def map2[A](opt: Option[A])(opt2: Option[A])(fun:(A,A)=>A): Option[A] = opt match {
+        case Some(a) if !isEmpty(opt2) => opt2 match {
+          case Some(b) => Some(fun(a,b))
+        }
+        case _ => None()
+      }
+      //different types in input and output
+      def map3[A,B,C](opt: Option[A])(opt2: Option[B])(fun:(A,B)=>C): Option[C] = opt match {
+        case Some(a) => opt2 match {
+          case Some(b) => Some(fun(a,b))
+        }
+        case _ => None()
+      }
+
       def isEmpty[A](opt: Option[A]): Boolean = opt match {
         case None() => true
         case _ => false
@@ -61,6 +77,18 @@ class Part5Test {
     //map
     assertEquals(Some(true), map(Some(5))(_ > 2) )// Some(true)
     assertEquals(None(), map(None[Int])(_ > 2) )// None
+
+    //map2
+    assertEquals(Some(3), map2(Some(1))(Some(2))(_+_))
+    assertEquals(Some(3), map2(Some(5))(Some(2))(_-_))
+    assertEquals(Some(6), map2(Some(3))(Some(2))(_*_))
+
+    //map3
+    assertEquals(Some(6), map3(Some(3))(Some(2))(_*_))
+    assertEquals(Some(true), map3(Some(3))(Some(3))(_==_))
+    assertEquals(Some(false), map3(Some(3))(Some("no"))(_==_))
+    assertEquals(Some("3no"), map3(Some(3))(Some("no"))(_+_))
+    assertEquals(Some("auto"), map3(Some("au"))(Some("to"))(_+_))
   }
 
 
